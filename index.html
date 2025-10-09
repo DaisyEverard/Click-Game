@@ -3,14 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Counter</title>
     <script src="./main.js" defer></script>
 </head>
 <body>
+    <div id="totals">
+        <div>Food Total: <span id="foodCountSpan"></span></div>
+    </div>
+
+    <div id="colonistManagement">
+        <div>Colonist Total: <span id="colonistCountSpan"></span></div>
+        <div>Idle Colonists: <span id="idleColonistCountSpan"></span></div>
+        <div>Growers: <span id="growersCountSpan"></span></div>
+        <div>Scientists: <span id="scientistsCountSpan"></span></div>
+    </div>
 
 
-    <div id="totalCard"></div>
-    <button onclick={addToCount(1)}>Add 1</button>
+    <button onclick="addToFood(1)">Grow Food</button><br/>
+    <button onclick="addColonists(1)">Recruit Colonist (10 food)</button>
 
 </body>
 </html>
