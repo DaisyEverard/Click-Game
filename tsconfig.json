@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                    // Output modern JavaScript
+    "module": "none",                   // No module system (so functions attach to window)
+    "outFile": "./main.js",             // Bundle everything into one file
+    "strict": true,                     // Enable strict type checking
+    "esModuleInterop": true,            // Better compatibility with CommonJS/ES imports
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["./main.ts"]              // Files to compile
+}
