@@ -4,23 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Counter</title>
+    <link rel="stylesheet" href="./style.css">
     <script src="./main.js" defer></script>
 </head>
 <body>
-    <div id="totals">
+    <div id="totalsDiv">
         <div>Food Total: <span id="foodCountSpan"></span></div>
     </div>
 
-    <div id="colonistManagement">
-        <div>Colonist Total: <span id="colonistCountSpan"></span></div>
-        <div>Idle Colonists: <span id="idleColonistCountSpan"></span></div>
-        <div>Growers: <span id="growersCountSpan"></span></div>
-        <div>Scientists: <span id="scientistsCountSpan"></span></div>
+    <div id="buttonsDiv">
+        <button onclick="addToFood(1)">Grow Food</button><br/>
+        <button onclick="addColonists(1)">Recruit Colonist (10 food)</button>
     </div>
 
+    <div id="colonistManagementDiv">
+        <div style="font-weight: bolder;">Colonist Total: <span id="colonistCountSpan"></span></div>
+        <div style="font-weight: bolder;">Idle Colonists: <span id="idleColonistCountSpan"></span></div>
+        <br/>
+        <div>
+            <button onclick="removeGrower(10)">-10</button>
+            <button onclick="removeGrower(1)">-1</button>
+            Growers: <span id="growerCountSpan"></span>
+            <button onclick="addGrower(1)">+1</button>
+            <button onclick="addGrower(10)">+10</button>
+        </div>
 
-    <button onclick="addToFood(1)">Grow Food</button><br/>
-    <button onclick="addColonists(1)">Recruit Colonist (10 food)</button>
-
+        <div>
+            <button onclick="removeScientist(10)">-10</button>
+            <button onclick="removeScientist(1)">-1</button>
+            Scientists: <span id="scientistCountSpan"></span>
+            <button onclick="addScientist(1)">+1</button>
+            <button onclick="addScientist(10)">+10</button>
+        </div>
+    </div>
+    
 </body>
 </html>
