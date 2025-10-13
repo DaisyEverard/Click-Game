@@ -8,50 +8,62 @@
     <script src="./scripts/main.js" defer></script>
 </head>
 <body>
+    <!-- HEADER -->
     <header>
         <div id="townTab" class="tab">Town</div>
         <div class="tabSeparator"></div>
         <div id="marketTab" class="tab">Market</div>
     </header>
 
-    <div id="totalsDiv" class="section">
-        <div>Food Total: <span id="foodCountSpan"></span></div>
-    </div>
-
-    <div id="buttonsDiv" class="section">
-        <button onclick="addToFood(1)">Grow Food</button><br/>
-        <div>
-            <button onclick="addColonists(1)">Recruit Colonist</button>
-            <button onclick="addColonists(10)">+10</button>
-            <button onclick="addColonists(100)">+100</button>
-            <span>cost 10 food</span>
-        </div>
-        
-    </div>
-
-    <div id="colonistManagementDiv" class="section hide">
-        <div style="font-weight: bolder;">Colonist Total: <span id="colonistCountSpan"></span></div>
-        <div style="font-weight: bolder;">Idle Colonists: <span id="idleColonistCountSpan"></span></div>
-        <br/>
-        <div>
-            <button onclick="removeGrower(10)">-10</button>
-            <button onclick="removeGrower(1)">-1</button>
-            Growers: <span id="growerCountSpan"></span>
-            <button onclick="addGrower(1)">+1</button>
-            <button onclick="addGrower(10)">+10</button>
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page">
+        <div id="totalsDiv" class="section">
+            <div>Food Total: <span id="foodCountSpan"></span></div>
         </div>
 
-        <div>
-            <button onclick="removeScientist(10)">-10</button>
-            <button onclick="removeScientist(1)">-1</button>
-            Scientists: <span id="scientistCountSpan"></span>
-            <button onclick="addScientist(1)">+1</button>
-            <button onclick="addScientist(10)">+10</button>
+        <div id="buttonsDiv" class="section">
+            <button onclick="addToFood(1)">Grow Food</button><br/>
+            <div>
+                <button onclick="addColonists(1)">Recruit Colonist</button>
+                <button onclick="addColonists(10)">+10</button>
+                <button onclick="addColonists(100)">+100</button>
+                <span>cost 10 food</span>
+            </div>
+            
+        </div>
+
+        <div id="colonistManagementDiv" class="section hide">
+            <div style="font-weight: bolder;">Colonist Total: <span id="colonistCountSpan"></span></div>
+            <div style="font-weight: bolder;">Idle Colonists: <span id="idleColonistCountSpan"></span></div>
+            <br/>
+            <div>
+                <button onclick="removeGrower(10)">-10</button>
+                <button onclick="removeGrower(1)">-1</button>
+                Growers: <span id="growerCountSpan"></span>
+                <button onclick="addGrower(1)">+1</button>
+                <button onclick="addGrower(10)">+10</button>
+            </div>
+
+            <div>
+                <button onclick="removeScientist(10)">-10</button>
+                <button onclick="removeScientist(1)">-1</button>
+                Scientists: <span id="scientistCountSpan"></span>
+                <button onclick="addScientist(1)">+1</button>
+                <button onclick="addScientist(10)">+10</button>
+            </div>
+        </div>
+
+        <div id="researchDiv" class="section hide">
+            <div>research Total: <span id="researchCountSpan"></span></div>
         </div>
     </div>
 
-    <div id="researchDiv" class="section hide">
-        <div>research Total: <span id="researchCountSpan"></span></div>
+    <!-- SAVE PAGE -->
+    <div id="savePage" class="page">
+        <button onClick="saveStateOnClick()">Save Game</button>
+        <button onClick="exportStateOnClick()">Export Game</button>
+        <input type="text" id="exportTextInput">
+        <button>Import Game</button>
     </div>
     
 </body>

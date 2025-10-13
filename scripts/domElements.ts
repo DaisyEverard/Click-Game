@@ -5,6 +5,8 @@ const scientistCountSpan = document.getElementById("scientistCountSpan") as HTML
 const idleColonistCountSpan = document.getElementById("idleColonistCountSpan") as HTMLElement;
 const researchCountSpan = document.getElementById("researchCountSpan") as HTMLElement;
 
+const exportTextInput = document.getElementById("exportTextInput") as HTMLElement;
+
 const reloadDisplay = (total: number, displayType: string) => {
     switch(displayType){
         case "food":
@@ -31,5 +33,5 @@ const reloadDisplay = (total: number, displayType: string) => {
 }
 
 export {
-  reloadDisplay
+  reloadDisplay, exportTextInput
 };

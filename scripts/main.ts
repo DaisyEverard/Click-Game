@@ -1,108 +1,103 @@
 // main.ts
 import * as DOM from "./domElements"
-import * as SAVE from "./save"
+import {fetchState, saveState} from "./save"
 
-//counts
-let foodCount = 0;
-let colonistCount = 0;
-let idleColonistCount = 0;
-let growerCount = 0;
-let scientistCount = 0;
-let researchCount = 0;
-let woodCount = 0;
-let stoneCount = 0;
-let metalCount = 0;
+// on load
+const state = fetchState()
 
-//gains
-let foodGain = 0;
-let researchGain = 0;
-let woodGain = 0;
-let stoneGain = 0;
-let metalGain = 0;
+const saveStateOnClick = () => {
+    saveState(state);
+};
+
+const exportStateOnClick = () => {
+    const stateString = JSON.stringify(fetchState())
+    DOM.exportTextInput.innerHTML = stateString;
+};
 
 // Logical methods
 const addToFood = (amountToAdd: number) => {
-    foodCount += amountToAdd;
-    DOM.reloadDisplay(foodCount, "food");
+    state.foodCount += amountToAdd;
+    DOM.reloadDisplay(state.foodCount, "food");
 }
+
 const addColonists = (amountToAdd: number) => {
-    if (foodCount < 10) {
+    if (state.foodCount < 10) {
         return;
     }
-    if (amountToAdd * 10 > foodCount) {
-        amountToAdd = Math.floor(foodCount/10)
+    if (amountToAdd * 10 > state.foodCount) {
+        amountToAdd = Math.floor(state.foodCount/10)
     }
-    colonistCount += amountToAdd;
-    foodCount -= amountToAdd * 10;
-    idleColonistCount += amountToAdd;
-    DOM.reloadDisplay(colonistCount, "colonist");
-    DOM.reloadDisplay(idleColonistCount, "idleColonist")
-    DOM.reloadDisplay(foodCount, "food");
+    state.colonistCount += amountToAdd;
+    state.foodCount -= amountToAdd * 10;
+    state.idleColonistCount += amountToAdd;
+    DOM.reloadDisplay(state.colonistCount, "colonist");
+    DOM.reloadDisplay(state.idleColonistCount, "idleColonist")
+    DOM.reloadDisplay(state.foodCount, "food");
 }
 
 // colonist management
 const addScientist = (amountToAdd: number) => {
-    if (idleColonistCount == 0) {
+    if (state.idleColonistCount == 0) {
         return;
     }
-    if (idleColonistCount < amountToAdd) {
-        amountToAdd = idleColonistCount
+    if (state.idleColonistCount < amountToAdd) {
+        amountToAdd = state.idleColonistCount
     }
-    idleColonistCount -= amountToAdd;
-    scientistCount += amountToAdd;
-    researchGain += amountToAdd;
-    DOM.reloadDisplay(scientistCount, "scientist");
-    DOM.reloadDisplay(idleColonistCount, "idleColonist")
+    state.idleColonistCount -= amountToAdd;
+    state.scientistCount += amountToAdd;
+    state.researchGain += amountToAdd;
+    DOM.reloadDisplay(state.scientistCount, "scientist");
+    DOM.reloadDisplay(state.idleColonistCount, "idleColonist")
 }
 
 const addGrower = (amountToAdd: number) => {
-    if (idleColonistCount == 0) {
+    if (state.idleColonistCount == 0) {
         return;
     }
-    if (idleColonistCount < amountToAdd) {
-        amountToAdd = idleColonistCount
+    if (state.idleColonistCount < amountToAdd) {
+        amountToAdd = state.idleColonistCount
     }
-    idleColonistCount -= amountToAdd;
-    growerCount += amountToAdd;
-    foodGain += amountToAdd;
-    DOM.reloadDisplay(growerCount, "grower");
-    DOM.reloadDisplay(idleColonistCount, "idleColonist")
+    state.idleColonistCount -= amountToAdd;
+    state.growerCount += amountToAdd;
+    state.foodGain += amountToAdd;
+    DOM.reloadDisplay(state.growerCount, "grower");
+    DOM.reloadDisplay(state.idleColonistCount, "idleColonist")
 }
 
 const removeScientist = (amountToRemove: number) => {
-    if (scientistCount < amountToRemove) {
-        amountToRemove = scientistCount;
+    if (state.scientistCount < amountToRemove) {
+        amountToRemove = state.scientistCount;
     }
-    idleColonistCount += amountToRemove;
-    scientistCount -= amountToRemove;
-    researchGain -= amountToRemove;
-    DOM.reloadDisplay(scientistCount, "scientist");
-    DOM.reloadDisplay(idleColonistCount, "idleColonist")
+    state.idleColonistCount += amountToRemove;
+    state.scientistCount -= amountToRemove;
+    state.researchGain -= amountToRemove;
+    DOM.reloadDisplay(state.scientistCount, "scientist");
+    DOM.reloadDisplay(state.idleColonistCount, "idleColonist")
 }
 
 const removeGrower = (amountToRemove: number) => {
-    if (growerCount < amountToRemove) {
-        amountToRemove = growerCount;
+    if (state.growerCount < amountToRemove) {
+        amountToRemove = state.growerCount;
     }
-    idleColonistCount += amountToRemove;
-    growerCount -= amountToRemove;
-    foodGain -= amountToRemove;
-    DOM.reloadDisplay(growerCount, "grower");
-    DOM.reloadDisplay(idleColonistCount, "idleColonist")
+    state.idleColonistCount += amountToRemove;
+    state.growerCount -= amountToRemove;
+    state.foodGain -= amountToRemove;
+    DOM.reloadDisplay(state.growerCount, "grower");
+    DOM.reloadDisplay(state.idleColonistCount, "idleColonist")
 }
 
 // always running
 const gainFoodInterval = setInterval(() => {
-    foodCount += foodGain;
-    DOM.reloadDisplay(foodCount, "food");
+    state.foodCount += state.foodGain;
+    DOM.reloadDisplay(state.foodCount, "food");
 }, 1000);
 const gainResearchInterval = setInterval(() => {
-    researchCount += researchGain;
-    DOM.reloadDisplay(researchCount, "research");
+    state.researchCount += state.researchGain;
+    DOM.reloadDisplay(state.researchCount, "research");
 }, 1000);
 
 // On page load
-DOM.reloadDisplay(foodCount, "food");
-DOM.reloadDisplay(colonistCount, "colonist");
+DOM.reloadDisplay(state.foodCount, "food");
+DOM.reloadDisplay(state.colonistCount, "colonist");
 
 
