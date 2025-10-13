@@ -1,5 +1,5 @@
 import {saveObject} from "./data/types"
-import defaultSaveObject from "data/defaultSaveObject"
+import defaultSaveObject from "./data/defaultSaveObject"
 
 // const validateObject = (state: JSON) => {
 //     // returns boolean. True = good, False = bad
