@@ -2,11 +2,11 @@
   "compilerOptions": {
     "target": "ES6",               
     "module": "none",                   
-    "outFile": "./main.js",            
+    "outFile": "scripts/main.js",            
     "strict": true,                    
     "esModuleInterop": true,            
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["./main.ts"]
+  "include": ["scripts/main.ts"]
 }

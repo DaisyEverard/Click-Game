@@ -5,19 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Counter</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="./main.js" defer></script>
+    <script src="./scripts/main.js" defer></script>
 </head>
 <body>
-    <div id="totalsDiv">
+    <header>
+        <div id="townTab" class="tab">Town</div>
+        <div class="tabSeparator"></div>
+        <div id="marketTab" class="tab">Market</div>
+    </header>
+
+    <div id="totalsDiv" class="section">
         <div>Food Total: <span id="foodCountSpan"></span></div>
     </div>
 
-    <div id="buttonsDiv">
+    <div id="buttonsDiv" class="section">
         <button onclick="addToFood(1)">Grow Food</button><br/>
-        <button onclick="addColonists(1)">Recruit Colonist (10 food)</button>
+        <div>
+            <button onclick="addColonists(1)">Recruit Colonist</button>
+            <button onclick="addColonists(10)">+10</button>
+            <button onclick="addColonists(100)">+100</button>
+            <span>cost 10 food</span>
+        </div>
+        
     </div>
 
-    <div id="colonistManagementDiv">
+    <div id="colonistManagementDiv" class="section hide">
         <div style="font-weight: bolder;">Colonist Total: <span id="colonistCountSpan"></span></div>
         <div style="font-weight: bolder;">Idle Colonists: <span id="idleColonistCountSpan"></span></div>
         <br/>
@@ -36,6 +48,10 @@
             <button onclick="addScientist(1)">+1</button>
             <button onclick="addScientist(10)">+10</button>
         </div>
+    </div>
+
+    <div id="researchDiv" class="section hide">
+        <div>research Total: <span id="researchCountSpan"></span></div>
     </div>
     
 </body>

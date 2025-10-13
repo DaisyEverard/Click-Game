@@ -16,6 +16,7 @@ const colonistCountSpan = document.getElementById("colonistCountSpan");
 const growerCountSpan = document.getElementById("growerCountSpan");
 const scientistCountSpan = document.getElementById("scientistCountSpan");
 const idleColonistCountSpan = document.getElementById("idleColonistCountSpan");
+const researchCountSpan = document.getElementById("researchCountSpan");
 // utils
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 // Reload displays
@@ -23,6 +24,9 @@ const reloadDisplay = (total, displayType) => {
     switch (displayType) {
         case "food":
             foodCountSpan.innerHTML = total.toString();
+            break;
+        case "research":
+            researchCountSpan.innerHTML = total.toString();
             break;
         case "colonist":
             colonistCountSpan.innerHTML = total.toString();
@@ -46,10 +50,11 @@ const addToFood = (amountToAdd) => {
     reloadDisplay(foodCount, "food");
 };
 const addColonists = (amountToAdd) => {
-    if (amountToAdd * 10 > foodCount) {
-        console.log("too expensive");
-        // need proper player feedback here
+    if (foodCount < 10) {
         return;
+    }
+    if (amountToAdd * 10 > foodCount) {
+        amountToAdd = Math.floor(foodCount / 10);
     }
     colonistCount += amountToAdd;
     foodCount -= amountToAdd * 10;
@@ -60,48 +65,50 @@ const addColonists = (amountToAdd) => {
 };
 // colonist management
 const addScientist = (amountToAdd) => {
-    if (idleColonistCount >= amountToAdd) {
-        idleColonistCount -= amountToAdd;
-        scientistCount += amountToAdd;
-        researchGain += amountToAdd;
-        reloadDisplay(scientistCount, "scientist");
-        reloadDisplay(idleColonistCount, "idleColonist");
+    if (idleColonistCount == 0) {
+        return;
     }
-    else {
-        console.warn("not enough colonists");
-        // need proper player feedback here
+    if (idleColonistCount < amountToAdd) {
+        amountToAdd = idleColonistCount;
     }
+    idleColonistCount -= amountToAdd;
+    scientistCount += amountToAdd;
+    researchGain += amountToAdd;
+    reloadDisplay(scientistCount, "scientist");
+    reloadDisplay(idleColonistCount, "idleColonist");
 };
 const addGrower = (amountToAdd) => {
-    if (idleColonistCount >= amountToAdd) {
-        idleColonistCount -= amountToAdd;
-        growerCount += amountToAdd;
-        foodGain += amountToAdd;
-        reloadDisplay(growerCount, "grower");
-        reloadDisplay(idleColonistCount, "idleColonist");
+    if (idleColonistCount == 0) {
+        return;
     }
-    else {
-        console.warn("not enough colonists");
-        // need proper player feedback here
+    if (idleColonistCount < amountToAdd) {
+        amountToAdd = idleColonistCount;
     }
+    idleColonistCount -= amountToAdd;
+    growerCount += amountToAdd;
+    foodGain += amountToAdd;
+    reloadDisplay(growerCount, "grower");
+    reloadDisplay(idleColonistCount, "idleColonist");
 };
 const removeScientist = (amountToRemove) => {
-    if (scientistCount >= 0) {
-        idleColonistCount += amountToRemove;
-        scientistCount -= amountToRemove;
-        researchGain -= amountToRemove;
-        reloadDisplay(scientistCount, "scientist");
-        reloadDisplay(idleColonistCount, "idleColonist");
+    if (scientistCount < amountToRemove) {
+        amountToRemove = scientistCount;
     }
+    idleColonistCount += amountToRemove;
+    scientistCount -= amountToRemove;
+    researchGain -= amountToRemove;
+    reloadDisplay(scientistCount, "scientist");
+    reloadDisplay(idleColonistCount, "idleColonist");
 };
 const removeGrower = (amountToRemove) => {
-    if (growerCount >= 0) {
-        idleColonistCount += amountToRemove;
-        growerCount -= amountToRemove;
-        foodGain -= amountToRemove;
-        reloadDisplay(growerCount, "grower");
-        reloadDisplay(idleColonistCount, "idleColonist");
+    if (growerCount < amountToRemove) {
+        amountToRemove = growerCount;
     }
+    idleColonistCount += amountToRemove;
+    growerCount -= amountToRemove;
+    foodGain -= amountToRemove;
+    reloadDisplay(growerCount, "grower");
+    reloadDisplay(idleColonistCount, "idleColonist");
 };
 // always running
 const gainFoodInterval = setInterval(() => {
@@ -110,8 +117,8 @@ const gainFoodInterval = setInterval(() => {
 }, 1000);
 const gainResearchInterval = setInterval(() => {
     researchCount += researchGain;
-    // reloadDisplay(foodCount, "food");
+    reloadDisplay(researchCount, "research");
 }, 1000);
 // On page load
 reloadDisplay(foodCount, "food");
-reloadDisplay(colonistCount, "colonists");
+reloadDisplay(colonistCount, "colonist");
