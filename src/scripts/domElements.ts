@@ -5,7 +5,8 @@ const scientistCountSpan = document.getElementById("scientistCountSpan") as HTML
 const idleColonistCountSpan = document.getElementById("idleColonistCountSpan") as HTMLElement;
 const researchCountSpan = document.getElementById("researchCountSpan") as HTMLElement;
 
-const exportTextInput = document.getElementById("exportTextInput") as HTMLElement;
+const exportTextInput = document.getElementById("exportTextInput") as HTMLInputElement;
+const importTextInput = document.getElementById("importTextInput") as HTMLInputElement;
 
 const reloadDisplay = (total: number, displayType: string) => {
     switch(displayType){
@@ -33,5 +34,5 @@ const reloadDisplay = (total: number, displayType: string) => {
 }
 
 export {
-  reloadDisplay, exportTextInput
+  reloadDisplay, exportTextInput, importTextInput
 };

@@ -23,4 +23,4 @@ type saveObject = {
     smithsUnlocked: boolean
 }
 
-export {saveObject}
+export type {saveObject}

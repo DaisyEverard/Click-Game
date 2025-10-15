@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Counter</title>
-    <link rel="stylesheet" href="./style.css">
-    <script src="./scripts/main.js" defer></script>
+    <link rel="stylesheet" href="./src/style.css">
+    <script type="module" src="./src/scripts/main.ts" defer></script>
 </head>
 <body>
     <!-- HEADER -->
@@ -22,11 +22,11 @@
         </div>
 
         <div id="buttonsDiv" class="section">
-            <button onclick="addToFood(1)">Grow Food</button><br/>
+            <button id="growFoodButton">Grow Food</button><br/>
             <div>
-                <button onclick="addColonists(1)">Recruit Colonist</button>
-                <button onclick="addColonists(10)">+10</button>
-                <button onclick="addColonists(100)">+100</button>
+                <button id="add1colonist">Recruit Colonist</button>
+                <button id="add10colonist">+10</button>
+                <button id="add100colonist">+100</button>
                 <span>cost 10 food</span>
             </div>
             
@@ -37,19 +37,19 @@
             <div style="font-weight: bolder;">Idle Colonists: <span id="idleColonistCountSpan"></span></div>
             <br/>
             <div>
-                <button onclick="removeGrower(10)">-10</button>
-                <button onclick="removeGrower(1)">-1</button>
+                <button id="remove1Grower">-10</button>
+                <button id="remove10Grower">-1</button>
                 Growers: <span id="growerCountSpan"></span>
-                <button onclick="addGrower(1)">+1</button>
-                <button onclick="addGrower(10)">+10</button>
+                <button id="add1Grower">+1</button>
+                <button id="add10Grower">+10</button>
             </div>
 
             <div>
-                <button onclick="removeScientist(10)">-10</button>
-                <button onclick="removeScientist(1)">-1</button>
+                <button id="remove10Scientist">-10</button>
+                <button id="remove1Scientist">-1</button>
                 Scientists: <span id="scientistCountSpan"></span>
-                <button onclick="addScientist(1)">+1</button>
-                <button onclick="addScientist(10)">+10</button>
+                <button id="add1Scientist">+1</button>
+                <button id="add10Scientist">+10</button>
             </div>
         </div>
 
@@ -60,10 +60,11 @@
 
     <!-- SAVE PAGE -->
     <div id="savePage" class="page">
-        <button onClick="saveStateOnClick()">Save Game</button>
-        <button onClick="exportStateOnClick()">Export Game</button>
+        <button id="saveGameButton">Save Game</button>
+        <button id="exportStateButton">Export Game</button>
         <input type="text" id="exportTextInput">
-        <button>Import Game</button>
+        <button id="importStateButton">Import Game</button>
+        <input type="text" id="importTextInput">
     </div>
     
 </body>

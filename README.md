@@ -14,5 +14,8 @@ The regenerate main.js run
 - Add buildings to buy/research. Have them as different tabs that do things?
 - research points to unlock technologies e.g. mine stone, cut wood
 - figure out an algorith for incrementing prices
-- store save object in local browser storage
-- create way to export and import save object
+- have multiple save slots
+- implement modal when saving/importing
+- Have UI warning when something goes wrong
+- add validation for state object when saving
+- sort out main.js, split into multiple files

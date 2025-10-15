@@ -1,4 +1,4 @@
-import {saveObject} from "./data/types"
+import type {saveObject} from "./data/types"
 import defaultSaveObject from "./data/defaultSaveObject"
 
 // const validateObject = (state: JSON) => {
@@ -13,11 +13,16 @@ const saveState = (state: saveObject) => {
 
 const fetchState = () => {
     const objectString = localStorage.getItem("clickGame")
+    console.log("running fetchState")
 
     if (objectString == "" || objectString == null) {
+        console.log("no current state, using defaultSaveObject")
+        console.log(defaultSaveObject)
         return defaultSaveObject
     }
 
+    console.log("returning objectString")
+    console.log(objectString)
     return JSON.parse(objectString)
 }
 
