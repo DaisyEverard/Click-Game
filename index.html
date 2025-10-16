@@ -37,8 +37,8 @@
             <div style="font-weight: bolder;">Idle Colonists: <span id="idleColonistCountSpan"></span></div>
             <br/>
             <div>
-                <button id="remove1Grower">-10</button>
-                <button id="remove10Grower">-1</button>
+                <button id="remove10Grower">-10</button>
+                <button id="remove1Grower">-1</button>
                 Growers: <span id="growerCountSpan"></span>
                 <button id="add1Grower">+1</button>
                 <button id="add10Grower">+10</button>
@@ -55,12 +55,18 @@
 
         <div id="researchDiv" class="section hide">
             <div>research Total: <span id="researchCountSpan"></span></div>
+            <br/>
+            <div class="hide unlockBox" id="unlockWoodcuttingBox">
+                <span class="unlockTitle">Woodcutting</span>
+                <span class="unlockCost">Cost: 100 research</span>
+                <button id="unlockWoodcuttingButton">Buy</button>
+            </div>
         </div>
     </div>
 
     <!-- SAVE PAGE -->
     <div id="savePage" class="page">
-        <button id="saveGameButton">Save Game</button>
+        <button id="saveStateButton">Save Game</button>
         <button id="exportStateButton">Export Game</button>
         <input type="text" id="exportTextInput">
         <button id="importStateButton">Import Game</button>

@@ -1,124 +1,31 @@
 // main.ts
 import * as DOM from "./domElements"
-import {fetchState, saveState} from "./save"
+import {fetchState, saveState, exportState, importState} from "./save"
+import * as COUNTS from "./countChanges";
 
-// on load
-const state = fetchState();
-document.getElementById("saveGameButton")?.addEventListener("click", ()=> {saveState(state)});
-
-const exportState = () => {
-    const stateString = JSON.stringify(state)
-    // could add multiple save slots
-    // DOM.exportTextInput.setAttribute('value', stateString)
-    DOM.exportTextInput.value = stateString
-};
-document.getElementById("exportStateButton")?.addEventListener("click", ()=> {exportState()});
-
-const importState = () => {
-    const newState = DOM.importTextInput.value;
-    if (newState) {
-        // should have a confirmation modal warning this will overwrite data
-        saveState(JSON.parse(newState));
-        location.reload();
-    } else {
-        console.log("error saving state, new state not found")
-        // need the validation in saveState
-        // Set up visual error messaging on ui
-    }
-}
+// buttons
+let state = fetchState();
+document.getElementById("saveStateButton")?.addEventListener("click", ()=> {saveState(state)});
+document.getElementById("exportStateButton")?.addEventListener("click", ()=> {exportState(state)});
 document.getElementById("importStateButton")?.addEventListener("click", ()=> {importState()});
 
-// Logical methods
-const addToFood = (amountToAdd: number) => {
-    state.foodCount += amountToAdd;
-    DOM.reloadDisplay(state.foodCount, "food");
-}
-document.getElementById("growFoodButton")?.addEventListener("click", ()=> {addToFood(1)});
-
-const addColonists = (amountToAdd: number) => {
-    if (state.foodCount < 10) {
-        return;
-    }
-    if (amountToAdd * 10 > state.foodCount) {
-        amountToAdd = Math.floor(state.foodCount/10)
-    }
-    state.colonistCount += amountToAdd;
-    state.foodCount -= amountToAdd * 10;
-    state.idleColonistCount += amountToAdd;
-    DOM.reloadDisplay(state.colonistCount, "colonist");
-    DOM.reloadDisplay(state.idleColonistCount, "idleColonist")
-    DOM.reloadDisplay(state.foodCount, "food");
-}
-document.getElementById("add1colonist")?.addEventListener("click", ()=> {addColonists(1)});
-document.getElementById("add10colonist")?.addEventListener("click", ()=> {addColonists(10)});
-document.getElementById("add100colonist")?.addEventListener("click", ()=> {addColonists(100)});
-
-
-// colonist management
-const addScientist = (amountToAdd: number) => {
-    if (state.idleColonistCount == 0) {
-        return;
-    }
-    if (state.idleColonistCount < amountToAdd) {
-        amountToAdd = state.idleColonistCount
-    }
-    state.idleColonistCount -= amountToAdd;
-    state.scientistCount += amountToAdd;
-    state.researchGain += amountToAdd;
-    DOM.reloadDisplay(state.scientistCount, "scientist");
-    DOM.reloadDisplay(state.idleColonistCount, "idleColonist")
-}
-document.getElementById("add1Scientist")?.addEventListener("click", ()=> {addScientist(1)});
-document.getElementById("add10Scientist")?.addEventListener("click", ()=> {addScientist(10)});
-
-
-const addGrower = (amountToAdd: number) => {
-    if (state.idleColonistCount == 0) {
-        return;
-    }
-    if (state.idleColonistCount < amountToAdd) {
-        amountToAdd = state.idleColonistCount
-    }
-    state.idleColonistCount -= amountToAdd;
-    state.growerCount += amountToAdd;
-    state.foodGain += amountToAdd;
-    DOM.reloadDisplay(state.growerCount, "grower");
-    DOM.reloadDisplay(state.idleColonistCount, "idleColonist")
-}
-document.getElementById("add1Grower")?.addEventListener("click", ()=> {addGrower(1)});
-document.getElementById("add10Grower")?.addEventListener("click", ()=> {addGrower(10)});
-
-
-
-const removeScientist = (amountToRemove: number) => {
-    if (state.scientistCount < amountToRemove) {
-        amountToRemove = state.scientistCount;
-    }
-    state.idleColonistCount += amountToRemove;
-    state.scientistCount -= amountToRemove;
-    state.researchGain -= amountToRemove;
-    DOM.reloadDisplay(state.scientistCount, "scientist");
-    DOM.reloadDisplay(state.idleColonistCount, "idleColonist")
-}
-document.getElementById("remove1Scientist")?.addEventListener("click", ()=> {removeScientist(1)});
-document.getElementById("remove10Scientist")?.addEventListener("click", ()=> {removeScientist(10)});
-
-const removeGrower = (amountToRemove: number) => {
-    if (state.growerCount < amountToRemove) {
-        amountToRemove = state.growerCount;
-    }
-    state.idleColonistCount += amountToRemove;
-    state.growerCount -= amountToRemove;
-    state.foodGain -= amountToRemove;
-    DOM.reloadDisplay(state.growerCount, "grower");
-    DOM.reloadDisplay(state.idleColonistCount, "idleColonist")
-}
-document.getElementById("remove1Grower")?.addEventListener("click", ()=> {removeGrower(1)});
-document.getElementById("remove10Grower")?.addEventListener("click", ()=> {removeGrower(10)});
+document.getElementById("growFoodButton")?.addEventListener("click", ()=> {state = COUNTS.addToFood(1, state)});
+document.getElementById("add1Scientist")?.addEventListener("click", ()=> {state = COUNTS.addScientist(1, state)});
+document.getElementById("add10Scientist")?.addEventListener("click", ()=> {state = COUNTS.addScientist(10, state)});
+document.getElementById("add1colonist")?.addEventListener("click", ()=> {state = COUNTS.addColonists(1, state)});
+document.getElementById("add10colonist")?.addEventListener("click", ()=> {state = COUNTS.addColonists(10, state)});
+document.getElementById("add100colonist")?.addEventListener("click", ()=> {state = COUNTS.addColonists(100, state)});
+document.getElementById("add1Grower")?.addEventListener("click", ()=> {state = COUNTS.addGrower(1,state)});
+document.getElementById("add10Grower")?.addEventListener("click", ()=> {state = COUNTS.addGrower(10, state)});
+document.getElementById("remove1Scientist")?.addEventListener("click", ()=> {state = COUNTS.removeScientist(1, state)});
+document.getElementById("remove10Scientist")?.addEventListener("click", ()=> {state = COUNTS.removeScientist(10, state)});
+document.getElementById("remove1Grower")?.addEventListener("click", ()=> {state = COUNTS.removeGrower(1, state)});
+document.getElementById("remove10Grower")?.addEventListener("click", ()=> {state = COUNTS.removeGrower(10, state)});
 
 
 // always running
 const gainFoodInterval = setInterval(() => {
+    console.log(state)
     state.foodCount += state.foodGain;
     DOM.reloadDisplay(state.foodCount, "food");
 }, 1000);
@@ -126,18 +33,37 @@ const gainResearchInterval = setInterval(() => {
     state.researchCount += state.researchGain;
     DOM.reloadDisplay(state.researchCount, "research");
 }, 1000);
+
 const unlockColonistManagement = setInterval(() => {
-    // also need to check if unlock is true in state when loading an old game
-    if (state.colonistCount == 0) {
-        return
-    } else {
+    if (state.colonistManagementUnlocked == true || state.colonistCount > 0) {
         document.getElementById("colonistManagementDiv")?.classList.remove("hide")
+        state.colonistManagementUnlocked = true;
         clearInterval(unlockColonistManagement);
-    }
+    } else {return}
 }, 1000);
 
+const unlockResearch = setInterval(() => {
+    if (state.researchUnlocked == true || state.researchCount > 0) {
+        document.getElementById("researchDiv")?.classList.remove("hide");
+        document.getElementById("unlockWoodcuttingBox")?.classList.remove("hide");
+        console.log("unlocks");
+        state.researchUnlocked = true;
+        clearInterval(unlockResearch);
+    } else {return}
+}, 1000);
+
+const newIntervalsAfterWoodcuttingUnlocks = () => {
+    const unlockWoodcutters = setInterval(() => {
+        if (state.woodcuttersUnlocked == true || state.woodcutterCount > 0) {
+            // unlock next bit
+            console.log("stonecutting research and pier building unlocked")
+            state.woodcuttersUnlocked = true;
+            clearInterval(unlockWoodcutters);
+        } else {return}
+    })
+}
+
 // On page load
-DOM.reloadDisplay(state.foodCount, "food");
-DOM.reloadDisplay(state.colonistCount, "colonist");
+DOM.reloadAllDisplays(state);
 
 

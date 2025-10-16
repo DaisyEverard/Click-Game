@@ -1,4 +1,4 @@
-type saveObject = {
+type stateObject = {
     foodCount: number,
     colonistCount: number,
     idleColonistCount : number,
@@ -23,4 +23,4 @@ type saveObject = {
     smithsUnlocked: boolean
 }
 
-export type {saveObject}
+export type {stateObject}

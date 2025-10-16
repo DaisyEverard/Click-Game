@@ -1,3 +1,5 @@
+import type { stateObject } from "./data/types";
+
 const foodCountSpan = document.getElementById("foodCountSpan") as HTMLElement;
 const colonistCountSpan = document.getElementById("colonistCountSpan") as HTMLElement;
 const growerCountSpan = document.getElementById("growerCountSpan") as HTMLElement;
@@ -33,6 +35,15 @@ const reloadDisplay = (total: number, displayType: string) => {
     }
 }
 
+const reloadAllDisplays = (state: stateObject) => {
+    foodCountSpan.innerHTML = state.foodCount.toString();
+    researchCountSpan.innerHTML = state.researchCount.toString();
+    colonistCountSpan.innerHTML = state.colonistCount.toString();
+    idleColonistCountSpan.innerHTML = state.idleColonistCount.toString();
+    growerCountSpan.innerHTML = state.growerCount.toString();
+    scientistCountSpan.innerHTML = state.scientistCount.toString();
+}
+
 export {
-  reloadDisplay, exportTextInput, importTextInput
+  reloadDisplay, reloadAllDisplays, exportTextInput, importTextInput
 };
