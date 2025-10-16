@@ -1,5 +1,5 @@
-import type {stateObject} from "./data/types"
-import defaultSaveObject from "./data/defaultSaveObject"
+import type {stateObject} from "../data/types"
+import defaultSaveObject from "../data/defaultSaveObject"
 import * as DOM from './domElements'
 
 // const validateObject = (state: JSON) => {

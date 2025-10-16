@@ -1,4 +1,4 @@
-import type { stateObject } from "./data/types";
+import type { stateObject } from "../data/types";
 
 const foodCountSpan = document.getElementById("foodCountSpan") as HTMLElement;
 const colonistCountSpan = document.getElementById("colonistCountSpan") as HTMLElement;
