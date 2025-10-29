@@ -34,13 +34,6 @@ header {
 .section {
     margin: 5px;
 }
-
-#colonistManagementDiv {
-    border: 2px solid rgb(255, 255, 255);
-}
 #buttonsDiv {
     border: 2px solid red;
-}
-#researchDiv {
-    border: 2px solid green;
 }
